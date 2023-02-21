@@ -76,4 +76,16 @@ def key_up(array):
     return array
 
 
-mass = mass_fill(mass)
+def add_blocks(array):
+    for i in range(random.randint(1, 2)):
+        randx = random.randint(0, x - 1)
+        randy = random.randint(0, y - 1)
+        while not array[randy][randx] == 0:
+            randx = random.randint(0, x - 1)
+            randy = random.randint(0, y - 1)
+        if random.randint(0, 1) == 0:
+            array[randy][randx] = 2
+        else:
+            array[randy][randx] = 4
+    return array
+
