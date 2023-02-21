@@ -1,10 +1,7 @@
 import random
-import keyboard
-import pygame
 
 x = 5
 y = 5
-mass = []
 
 
 # filling game desk at the start
@@ -51,7 +48,7 @@ def key_left(array):
 
 
 # colculating, when you click key "dawn"
-def key_dawn(array):
+def key_down(array):
     for i in range(y - 1):
         for g in range(x):
             if array[i + 1][g] == 0:
