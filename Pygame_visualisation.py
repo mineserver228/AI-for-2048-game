@@ -1,8 +1,9 @@
 import random
-import time
-import pygame
-import Game_math_functions as gm
+
 import keyboard
+import pygame
+
+import Game_math_functions as gm
 
 pygame.font.init()
 # pygame settings
@@ -12,14 +13,13 @@ pygame.display.set_caption("2048 game with AI")
 font = pygame.font.SysFont("arial", 36)
 font_score = pygame.font.SysFont("arial", 25)
 # Variables
-key_flagd = 0
-key_flagu = 0
-key_flagl = 0
-key_flagr = 0
 mass = [[0] * gm.x for i in range(gm.y)]
 mass = gm.add_blocks(mass)
 max_score = 0
 auto_click = False
+keys = ["down", "up", "left", "right"]
+actions = [gm.key_down, gm.key_up, gm.key_left, gm.key_right]
+flags = [False, False, False, False]
 # initialization of cell colors
 gm.colours = gm.colours_init(gm.colours)
 # loop
@@ -29,43 +29,19 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     screen.fill(background_colour)
-    # keys
-    # key DOWN
-    if keyboard.is_pressed("down"):
-        if key_flagd != 1:
-            key_flagd = 1
-            mass = gm.key_down(mass)
+
+# keys
+    for i, (key, action) in enumerate(zip(keys, actions)):
+        if keyboard.is_pressed(key):
+            if flags[i]:
+                continue
+            mass = action(mass)
             mass = gm.add_blocks(mass)
-    if not keyboard.is_pressed("down"):
-        if key_flagd == 1:
-            key_flagd = 0
-    # key UP
-    if keyboard.is_pressed("up"):
-        if key_flagu != 1:
-            key_flagu = 1
-            mass = gm.key_up(mass)
-            mass = gm.add_blocks(mass)
-    if not keyboard.is_pressed("up"):
-        if key_flagu == 1:
-            key_flagu = 0
-    # key LEFT
-    if keyboard.is_pressed("left"):
-        if key_flagl != 1:
-            key_flagl = 1
-            mass = gm.key_left(mass)
-            mass = gm.add_blocks(mass)
-    if not keyboard.is_pressed("left"):
-        if key_flagl == 1:
-            key_flagl = 0
-    # key RIGHT
-    if keyboard.is_pressed("right"):
-        if key_flagr != 1:
-            key_flagr = 1
-            mass = gm.key_right(mass)
-            mass = gm.add_blocks(mass)
-    if not keyboard.is_pressed("right"):
-        if key_flagr == 1:
-            key_flagr = 0
+            flags[i] = True
+        else:
+            if flags[i]:
+                flags[i] = False
+
     if auto_click:
         if not keyboard.is_pressed("space"):
             rand = random.randint(1, 4)
@@ -79,7 +55,7 @@ while running:
                 mass = gm.key_right(mass)
             mass = gm.add_blocks(mass)
 
-    # Draw sqares with numbers
+    # Draw squares with numbers
     for i in range(gm.x):
         for g in range(gm.y):
             # colours not working
