@@ -1,13 +1,14 @@
 import random
 
 score = 0
-x = 5
-y = 5
+x = 4
+y = 4
 colours = []
+
 
 # colculating, when you click key "right"
 def key_right(array):
-    global score
+    global score, max_block
     for i in range(x - 1):
         for i in range(x - 1):
             for g in range(y):
@@ -23,7 +24,7 @@ def key_right(array):
 
 # colculating, when you click key "left"
 def key_left(array):
-    global score
+    global score, max_block
     for i in range(x - 1):
         for i in range(x - 1):
             for g in range(y):
@@ -39,7 +40,7 @@ def key_left(array):
 
 # colculating, when you click key "dawn"
 def key_down(array):
-    global score
+    global score, max_block
     for i in range(y - 1):
         for i in range(y - 1):
             for g in range(x):
@@ -55,7 +56,7 @@ def key_down(array):
 
 # colculating, when you click key "up"
 def key_up(array):
-    global score
+    global score, max_block
     for i in range(y - 1):
         for i in range(y - 1):
             for g in range(x):
